@@ -16,7 +16,7 @@ async def get_db_session() -> AsyncGenerator[AsyncSession, None]:
 
 async def get_kitten_by_id(
     id: int,
-    session: AsyncSession = Depends(get_db_session)
+    session: AsyncSession #= Depends(get_db_session)
 ) -> KittenModel:
     kitten = await session.get(KittenModel, id)
     if not kitten:

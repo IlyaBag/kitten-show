@@ -63,22 +63,24 @@ async def add_kitten(
     await session.commit()
 
 
-@router.put('/kittens/{id}')
+@router.patch('/kittens/{id}')
 async def update_kitten(
     id: int,
     params: UpdateKitten,
     session: AsyncSession = Depends(get_db_session),
 ):
     '''Updates information about the kitten with id = "id"'''
-    kitten = await get_kitten_by_id(id)
+    kitten = await get_kitten_by_id(id, session)
     for key, val in params.model_dump(exclude_none=True).items():
         kitten.__setattr__(key, val)
     await session.commit()
+    return {'details': 'Updated successfully'}
 
 
 @router.delete('/kittens/{id}', status_code=status.HTTP_204_NO_CONTENT)
 async def delete_kitten(id: int, session: AsyncSession = Depends(get_db_session)):
     '''Deletes the kitten with id = "id"'''
-    kitten = await get_kitten_by_id(id)
+    kitten = await get_kitten_by_id(id, session)
     await session.delete(kitten)
     await session.commit()
+    return {'details': 'Deleted successfully'}
