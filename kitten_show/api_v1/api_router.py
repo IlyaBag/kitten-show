@@ -10,7 +10,7 @@ from database.helpers import get_db_session, get_kitten_by_id
 from database.models import BreedModel, KittenModel
 
 
-router = APIRouter(tags=['Kittens'])
+router = APIRouter(prefix='/api/v1', tags=['Kittens'])
 
 
 @router.get('/breeds', response_model=list[Breed])
