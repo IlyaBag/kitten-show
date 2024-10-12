@@ -1,6 +1,6 @@
 from typing import AsyncGenerator
 
-from fastapi import Depends, HTTPException, status
+from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from database.db import async_session_factory
@@ -16,7 +16,7 @@ async def get_db_session() -> AsyncGenerator[AsyncSession, None]:
 
 async def get_kitten_by_id(
     id: int,
-    session: AsyncSession #= Depends(get_db_session)
+    session: AsyncSession
 ) -> KittenModel:
     kitten = await session.get(KittenModel, id)
     if not kitten:
