@@ -78,7 +78,7 @@ async def update_kitten(
     return {'details': 'Updated successfully'}
 
 
-@router.delete('/kittens/{id}', status_code=status.HTTP_204_NO_CONTENT)
+@router.delete('/kittens/{id}', status_code=status.HTTP_200_OK)
 async def delete_kitten(id: int, session: AsyncSession = Depends(get_db_session)):
     '''Deletes the kitten with id = "id"'''
     kitten = await get_kitten_by_id(id, session)
