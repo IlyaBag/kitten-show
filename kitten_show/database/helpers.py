@@ -17,7 +17,7 @@ async def get_db_session() -> AsyncGenerator[AsyncSession, None]:
 async def get_kitten_by_id(
     id: int,
     session: AsyncSession
-) -> KittenModel:
+) -> KittenModel | HTTPException:
     kitten = await session.get(KittenModel, id)
     if not kitten:
         raise HTTPException(
