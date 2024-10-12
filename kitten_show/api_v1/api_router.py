@@ -61,6 +61,7 @@ async def add_kitten(
     new_kitten = KittenModel(**params.model_dump())
     session.add(new_kitten)
     await session.commit()
+    return {'details': 'Created successfully'}
 
 
 @router.patch('/kittens/{id}')
